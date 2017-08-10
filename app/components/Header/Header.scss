@@ -1,0 +1,86 @@
+.header {
+  height: 106px;
+  position: relative;
+  padding: .01em 66px 0;
+  background-color: #f7f7f7;
+  border-bottom: 1px solid #d7d7d7;
+  color: #fff;
+  font-size: 22px;
+  text-align: left;
+  box-sizing: content-box;
+
+  &__mainpage-link {
+    display: inline-block;
+    height: calc(100% - 2em);
+    width: 224px;
+    margin: 1em 0;
+    background-image: url("http://static.merixstudio.com/images/merix_logo_text.svg?ef7c53cb44d2");
+    background-repeat: no-repeat;
+    background-position: 50%, 50%;
+    font-size: 14px;
+    transition: opacity .25s ease
+  }
+
+  &__title {
+    vertical-align: top;
+    line-height: 106px;
+    margin: 0;
+    display: inline-block;
+    font-weight: 300;
+    padding-left: 30px;
+    color: #de8f33
+  }
+
+  &__decorator {
+    position: absolute;
+    top: 0;
+    right: 0;
+    height: 106px;
+    width: 220px;
+    z-index: 1;
+
+    &-left {
+      display: inline-block;
+      background: #fff;
+      height: 100%;
+      width: 120px;
+      position: relative;
+
+      &:after,
+      &:before {
+        content: '';
+        position: absolute;
+        z-index: -1;
+        height: 50%;
+        width: calc(100% + 37.111px);
+        background-color: #fff;
+        left: -18.5555px;
+        border-left: 1px solid #d7d7d7;
+      }
+
+      &:after {
+        top: 0;
+        transform: skewX(-35deg);
+      }
+
+      &:before {
+        bottom: 0;
+        transform: skewX(35deg);
+      }
+    }
+
+    &-right {
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      z-index: -2;
+      display: inline-block;
+      width: 100px;
+      background: #e09531;
+      background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, #e09531), color-stop(100%, #d56942));
+      background-image: -webkit-linear-gradient(top, #e09531, #d56942);
+      background-image: linear-gradient(180deg, #e09531 0, #d56942);
+    }
+  }
+}
