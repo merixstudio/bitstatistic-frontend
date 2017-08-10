@@ -11,6 +11,10 @@ import {
   Header,
 } from './components';
 
+import {
+  Statistics,
+} from './containers';
+
 injectTapEventPlugin();
 
 const rootElement = document.getElementById('app');
@@ -18,6 +22,7 @@ const rootElement = document.getElementById('app');
 const app = (
   <div>
     <Header title="Bitstatistics" />
+    <Statistics />
   </div>
 );
 
