@@ -14,19 +14,13 @@
     "css-loader": "^0.28.0",
     "diff": "^3.3.0",
     "html-webpack-plugin": "^2.28.0",
-    "material-ui": "^0.17.1",
     "moment": "^2.18.1",
     "node-sass": "^4.5.2",
     "null-loader": "^0.1.1",
     "path": "^0.12.7",
     "react": "^15.4.2",
     "react-dom": "^15.4.2",
-    "react-redux": "^5.0.3",
-    "react-router-dom": "^4.1.1",
     "react-tap-event-plugin": "^2.0.1",
-    "redux": "^3.6.0",
-    "redux-thunk": "^2.2.0",
-    "reselect": "^3.0.0",
     "sass-loader": "^6.0.3",
     "style-loader": "^0.16.1",
     "webpack": "^2.3.2",
@@ -42,6 +36,7 @@
     "eslint-config-airbnb": "^15.0.2",
     "eslint-plugin-import": "^2.7.0",
     "eslint-plugin-jsx-a11y": "5.1.1",
-    "eslint-plugin-react": "^7.1.0"
+    "eslint-plugin-react": "^7.1.0",
+    "jest": "^20.0.4"
   }
 }
