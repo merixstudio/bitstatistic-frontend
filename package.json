@@ -3,10 +3,11 @@
 	"version": "0.0.1",
 	"private": true,
 	"scripts": {
-		"start": "node node_modules/react-native/local-cli/cli.js start",
+		"android:dev": "react-native run-android",
+		"web:dev": "webpack-dev-server --config web/webpack/webpack.config.dev.js",
+		"web:prod": "webpack --config web/webpack/webpack.config.prod.js --p --progress",
 		"test": "jest",
-		"web:dev": "webpack-dev-server --config webpack.config.dev.js",
-		"web:prod": "webpack --config webpack.config.prod.js --p --progress"
+		"clear-cache": "gulp clear-cache"
 	},
 	"dependencies": {
 		"babel-preset-stage-0": "^6.24.1",
@@ -43,6 +44,7 @@
 		"babel-preset-es2015": "^6.24.0",
 		"babel-preset-react": "^6.23.0",
 		"babel-preset-react-native": "3.0.2",
+		"cbor": "^3.0.3",
 		"eslint": "3.19.0",
 		"eslint-config-airbnb": "^15.0.2",
 		"eslint-plugin-import": "^2.7.0",
