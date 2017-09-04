@@ -9,15 +9,11 @@ export default class Statistics extends Component {
   constructor() {
     super();
 
-    this.repositories = {
-      labels: [moment().format('DD/MM/YYYY'), moment().day(-1).format('DD/MM/YYYY')],
-      datasets: [
-        {
-          backgroundColor: 'rgb(222,143,51)',
-          data: [44, 65],
-        },
-      ],
-    };
+    this.repositories = [
+      { date: moment().format('DD/MM/YYYY'), commits: 44},
+      { date: moment().day(-1).format('DD/MM/YYYY'), commits: 65},
+      { date: moment().day(-2).format('DD/MM/YYYY'), commits: 33},
+    ];
   }
 
   componentDidMount() {
