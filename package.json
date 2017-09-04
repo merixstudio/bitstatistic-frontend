@@ -9,6 +9,11 @@
 		"test": "jest",
 		"clear-cache": "gulp clear-cache"
 	},
+	"rnpm": {
+		"assets": [
+			"./app/assets/fonts/"
+		]
+	},
 	"dependencies": {
 		"babel-preset-stage-0": "^6.24.1",
 		"chart.js": "^2.6.0",

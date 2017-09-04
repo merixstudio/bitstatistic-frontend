@@ -39,11 +39,13 @@ const styles = StyleSheet.create({
     backgroundColor: '#F5FCFF',
   },
   welcome: {
+    fontFamily: 'titillium_regular',
     fontSize: 20,
     textAlign: 'center',
     margin: 10,
   },
   instructions: {
+    fontFamily: 'titillium_regular',
     textAlign: 'center',
     color: '#333333',
     marginBottom: 5,
