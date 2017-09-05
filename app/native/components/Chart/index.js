@@ -16,6 +16,7 @@ export default ({
   title,
   description,
   data,
+  width
 }) => (
   <View
     style={styles.container}
@@ -29,6 +30,7 @@ export default ({
       <VictoryChart
         domainPadding={15}
         height={(30 + 30) * data.length}
+        width={width}
       >
         <VictoryAxis
           orientation="left"

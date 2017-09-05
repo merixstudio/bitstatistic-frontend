@@ -3,6 +3,7 @@ import {
   Text,
   View,
   ScrollView,
+  Dimensions,
 } from 'react-native';
 import moment from 'moment';
 
@@ -28,12 +29,27 @@ class App extends Component {
       { date: moment().day(-8).format('DD/MM/YYYY'), commits: 43 },
       { date: moment().day(-16).format('DD/MM/YYYY'), commits: 43 },
     ];
+
+    this.state = {
+      width: 320,
+    };
+
+    this.onOrientationChange = this.onOrientationChange.bind(this);
+  }
+
+  onOrientationChange() {
+    const { width } = Dimensions.get('window');
+
+    this.setState({
+      width,
+    });
   }
 
   render() {
     return (
       <View
         style={styles.main}
+        onLayout={this.onOrientationChange}
       >
         <Header />
         <ScrollView>
@@ -41,6 +57,7 @@ class App extends Component {
             title={'Repositories'}
             description={'Lorem ipsum dolor sit amet, adipisicing elit.'}
             data={this.repositories}
+            width={this.state.width}
           />
         </ScrollView>
       </View>
