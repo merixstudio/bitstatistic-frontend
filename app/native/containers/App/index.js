@@ -2,28 +2,47 @@ import React, { Component } from 'react';
 import {
   Text,
   View,
-  Image,
+  ScrollView,
 } from 'react-native';
+import moment from 'moment';
 
 import { styles } from './style';
 
-import { Header } from '../../components';
+import {
+  Header,
+  Chart,
+} from '../../components';
 
 class App extends Component {
+  constructor(props) {
+    super(props);
+
+    this.repositories = [
+      { date: moment().format('DD/MM/YYYY'), commits: 44 },
+      { date: moment().day(-1).format('DD/MM/YYYY'), commits: 65 },
+      { date: moment().day(-2).format('DD/MM/YYYY'), commits: 33 },
+      { date: moment().day(-6).format('DD/MM/YYYY'), commits: 63 },
+      { date: moment().day(-4).format('DD/MM/YYYY'), commits: 43 },
+      { date: moment().day(-7).format('DD/MM/YYYY'), commits: 43 },
+      { date: moment().day(-24).format('DD/MM/YYYY'), commits: 43 },
+      { date: moment().day(-8).format('DD/MM/YYYY'), commits: 43 },
+      { date: moment().day(-16).format('DD/MM/YYYY'), commits: 43 },
+    ];
+  }
+
   render() {
     return (
-      <View>
+      <View
+        style={styles.main}
+      >
         <Header />
-        <Text style={styles.welcome}>
-          Welcome to React Native!
-        </Text>
-        <Text style={styles.instructions}>
-          To get started, edit index.android.js
-        </Text>
-        <Text style={styles.instructions}>
-          Double tap R on your keyboard to reload,{'\n'}
-          Shake or press menu button for dev menu
-        </Text>
+        <ScrollView>
+          <Chart
+            title={'Repositories'}
+            description={'Lorem ipsum dolor sit amet, adipisicing elit.'}
+            data={this.repositories}
+          />
+        </ScrollView>
       </View>
     );
   }

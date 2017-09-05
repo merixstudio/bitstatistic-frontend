@@ -20,6 +20,7 @@ export const styles = StyleSheet.create({
     color: '#de8f33',
     paddingLeft: 20,
     paddingTop: 5,
+    fontFamily: 'titillium_regular',
   },
   border: {
     height: 1,

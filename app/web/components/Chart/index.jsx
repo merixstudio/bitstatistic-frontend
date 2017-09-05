@@ -39,7 +39,7 @@ export default class Chart extends Component {
             data={this.props.data}
             x={'date'}
             y={'commits'}
-            horizontal={true}
+            horizontal
             style={{
               data: {
                 fill: '#e09531',
