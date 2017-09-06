@@ -7,17 +7,22 @@
 import React, { Component } from 'react';
 import {
   AppRegistry,
-  Text,
-  View,
-  Image,
 } from 'react-native';
+
+import { Provider } from 'mobx-react';
+
+import stores from './app/stores';
 
 import { App } from './app/native/containers';
 
 export default class bitstatistics extends Component {
   render() {
     return (
-      <App />
+      <Provider
+        ui={stores.ui}
+      >
+        <App />
+      </Provider>
     );
   }
 }

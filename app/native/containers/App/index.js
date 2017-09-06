@@ -7,6 +7,8 @@ import {
 } from 'react-native';
 import moment from 'moment';
 
+import { observer } from 'mobx-react';
+
 import { styles } from './style';
 
 import {
@@ -14,7 +16,8 @@ import {
   Chart,
 } from '../../components';
 
-class App extends Component {
+@observer(['ui'])
+export default class App extends Component {
   constructor(props) {
     super(props);
 
@@ -29,20 +32,12 @@ class App extends Component {
       { date: moment().day(-8).format('DD/MM/YYYY'), commits: 43 },
       { date: moment().day(-16).format('DD/MM/YYYY'), commits: 43 },
     ];
-
-    this.state = {
-      width: 320,
-    };
-
     this.onOrientationChange = this.onOrientationChange.bind(this);
   }
 
   onOrientationChange() {
     const { width } = Dimensions.get('window');
-
-    this.setState({
-      width,
-    });
+    this.props.ui.changeDeviceWidth(width);
   }
 
   render() {
@@ -57,12 +52,10 @@ class App extends Component {
             title={'Repositories'}
             description={'Lorem ipsum dolor sit amet, adipisicing elit.'}
             data={this.repositories}
-            width={this.state.width}
+            width={this.props.ui.deviceWidth}
           />
         </ScrollView>
       </View>
     );
   }
 }
-
-export default App;

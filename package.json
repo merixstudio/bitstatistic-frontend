@@ -59,6 +59,7 @@
 		"eslint-plugin-jsx-a11y": "5.1.1",
 		"eslint-plugin-react": "^7.1.0",
 		"jest": "20.0.4",
+		"mobx-react-devtools": "^4.2.15",
 		"react-test-renderer": "16.0.0-alpha.12"
 	},
 	"jest": {
