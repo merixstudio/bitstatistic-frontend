@@ -18,7 +18,8 @@
     background-repeat: no-repeat;
     background-position: 50%, 50%;
     font-size: 14px;
-    transition: opacity .25s ease
+    transition: opacity .25s ease;
+    text-indent: -99999px;
   }
 
   &__title {

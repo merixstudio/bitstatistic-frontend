@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 
 import {
   View,
@@ -8,35 +8,32 @@ import {
 
 import { styles } from './style';
 
-export default class Header extends Component {
-  render() {
-    return (
-      <View>
-        <View
-          style={styles.header}
-        >
-          <View
-            style={styles.content}
-          >
-            <Image
-              style={styles.image}
-              source={require('../../../assets/images/merix_logo_text.png')}
-            />
-            <Text
-              style={styles.title}
-            >
-              Bitstatistics
-            </Text>
-          </View>
-          <Image
-            source={require('../../../assets/images/header_arrows.png')}
-          />
-        </View>
-        <View
-          style={styles.border}
+export default ({
+  title,
+}) => (
+  <View>
+    <View
+      style={styles.header}
+    >
+      <View
+        style={styles.content}
+      >
+        <Image
+          style={styles.image}
+          source={require('../../../assets/images/merix_logo_text.png')}
         />
+        <Text
+          style={styles.title}
+        >
+          {title}
+        </Text>
       </View>
-    );
-  }
-}
-
+      <Image
+        source={require('../../../assets/images/header_arrows.png')}
+      />
+    </View>
+    <View
+      style={styles.border}
+    />
+  </View>
+);

@@ -40,7 +40,9 @@ export default class App extends Component {
         style={styles.main}
         onLayout={this.onOrientationChange}
       >
-        <Header />
+        <Header
+          title="Bitstatistics"
+        />
         <ScrollView>
           {!!repositories.length && <Chart
             title={'Repositories'}
