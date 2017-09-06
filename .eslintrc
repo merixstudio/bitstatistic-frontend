@@ -25,7 +25,9 @@
     "class-methods-use-this": 0,
     "arrow-body-style": [2, "as-needed"],
     "no-confusing-arrow": [2, {"allowParens": true}],
-    "react/prop-types": 0
+    "react/prop-types": 0,
+    "react/jsx-filename-extension": [1, {"extensions": [".js", ".jsx"]}
+    ],
   },
   "plugins": [
     "react", "import"
