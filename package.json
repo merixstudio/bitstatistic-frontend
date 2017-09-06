@@ -25,7 +25,7 @@
 		"mobx": "^3.2.2",
 		"mobx-react": "^4.2.2",
 		"moment": "^2.18.1",
-		"node-sass": "^4.5.2",
+		"node-sass": "4.5.2",
 		"null-loader": "^0.1.1",
 		"path": "^0.12.7",
 		"react": "16.0.0-alpha.12",

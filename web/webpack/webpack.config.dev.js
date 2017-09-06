@@ -35,6 +35,9 @@ module.exports = {
       }, {
         loader: 'sass-loader', // compiles Sass to CSS
       }],
+    }, {
+      test: require.resolve('cbor'),
+      loader: 'null-loader',
     }],
   },
   plugins: [

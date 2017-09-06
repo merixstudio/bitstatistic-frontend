@@ -23,7 +23,7 @@ export default class App extends Component {
     this.onOrientationChange = this.onOrientationChange.bind(this);
   }
 
-  componentDidMount() {
+  componentWillMount() {
     this.props.charts.fetchRepositories();
   }
 
@@ -33,7 +33,7 @@ export default class App extends Component {
   }
 
   render() {
-    const repositories = this.props.charts.repositories.slice();
+    const repositories = [...this.props.charts.repositories];
 
     return (
       <View
