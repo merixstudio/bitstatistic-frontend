@@ -20,6 +20,7 @@ export default class bitstatistics extends Component {
     return (
       <Provider
         ui={stores.ui}
+        charts={stores.charts}
       >
         <App />
       </Provider>

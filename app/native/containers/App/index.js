@@ -16,23 +16,15 @@ import {
   Chart,
 } from '../../components';
 
-@observer(['ui'])
+@observer(['ui', 'charts'])
 export default class App extends Component {
   constructor(props) {
     super(props);
-
-    this.repositories = [
-      { date: moment().format('DD/MM/YYYY'), commits: 44 },
-      { date: moment().day(-1).format('DD/MM/YYYY'), commits: 65 },
-      { date: moment().day(-2).format('DD/MM/YYYY'), commits: 33 },
-      { date: moment().day(-6).format('DD/MM/YYYY'), commits: 63 },
-      { date: moment().day(-4).format('DD/MM/YYYY'), commits: 43 },
-      { date: moment().day(-7).format('DD/MM/YYYY'), commits: 43 },
-      { date: moment().day(-24).format('DD/MM/YYYY'), commits: 43 },
-      { date: moment().day(-8).format('DD/MM/YYYY'), commits: 43 },
-      { date: moment().day(-16).format('DD/MM/YYYY'), commits: 43 },
-    ];
     this.onOrientationChange = this.onOrientationChange.bind(this);
+  }
+
+  componentDidMount() {
+    this.props.charts.fetchRepositories();
   }
 
   onOrientationChange() {
@@ -41,6 +33,8 @@ export default class App extends Component {
   }
 
   render() {
+    const repositories = this.props.charts.repositories.slice();
+
     return (
       <View
         style={styles.main}
@@ -48,12 +42,12 @@ export default class App extends Component {
       >
         <Header />
         <ScrollView>
-          <Chart
+          {!!repositories.length && <Chart
             title={'Repositories'}
             description={'Lorem ipsum dolor sit amet, adipisicing elit.'}
-            data={this.repositories}
+            data={repositories}
             width={this.props.ui.deviceWidth}
-          />
+          />}
         </ScrollView>
       </View>
     );
