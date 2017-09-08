@@ -1,13 +1,14 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-import './styles/main.scss';
+import { Provider } from 'mobx-react';
 
 // Needed for onTouchTap
 // http://stackoverflow.com/a/34015469/988941
 
-import { Provider } from 'mobx-react';
 import stores from '../stores';
+
+import './styles/main.scss';
 
 import {
   Header,

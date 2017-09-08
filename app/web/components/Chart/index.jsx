@@ -14,17 +14,17 @@ export default ({
 }) => (
   <div className="chart">
     <h2 className="chart__title">{title}</h2>
-    <p className="chart__description">{description}</p>
+    {!!description && <p className="chart__description">{description}</p>}
     <VictoryChart
       domainPadding={25}
-      height={(25 + 50) * data.length}
+      height={(25 + 50) * (data.length + 1)}
     >
       <VictoryAxis
         orientation="left"
         style={{
           tickLabels: {
             angle: 45,
-            fontSize: 8,
+            fontSize: 6,
           },
         }}
       />
@@ -40,7 +40,7 @@ export default ({
       <VictoryBar
         animate={{ duration: 500 }}
         data={data}
-        x={'date'}
+        x={'displayName'}
         y={'commits'}
         horizontal
         style={{

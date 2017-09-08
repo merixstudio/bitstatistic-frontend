@@ -1,28 +1,52 @@
 import React, { Component } from 'react';
-import { observer } from 'mobx-react';
+import { observer, inject } from 'mobx-react';
 
 import { Chart } from '../../components';
 
 import './Statistics.scss';
 
-@observer(['charts'])
+@inject('charts')
+@observer
 export default class Statistics extends Component {
+  constructor(props) {
+    super(props);
 
-  componentWillMount() {
-    this.props.charts.fetchRepositories();
+    this.props.charts.repositories;
   }
 
   render() {
-    const repositories = [...this.props.charts.repositories];
+    const { repositories, users } = this.props.charts;
+
+    const parsedRepositoriesChartData = repositories
+    ? repositories.map((repository) => {
+      return {
+        ...repository,
+        displayName: repository.fullName,
+        commits: repository.commits.length,
+      };
+    })
+    : [];
+
+    const parsedUsersChartData = users
+    ? users.map((user) => {
+      return {
+        ...user,
+        commits: user.commits.length,
+      };
+    })
+    : [];
 
     return (
       <div className="statistics">
-        {!!repositories.length && <Chart
-          title="Repositories"
-          description="Lorem ipsum dolor sit amet, consectetur adipisicing elit."
-          data={repositories}
+        {!!repositories && <Chart
+          title={'Commits per repository'}
+          data={parsedRepositoriesChartData}
+        />}
+        {!!users && <Chart
+          title={'Commits per user'}
+          data={parsedUsersChartData}
         />}
       </div>
     );
   }
-}
+};
