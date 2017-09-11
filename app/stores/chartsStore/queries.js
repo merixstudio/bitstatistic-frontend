@@ -16,10 +16,21 @@ export const repositories = gql`
 export const users = gql`
   {
     users {
+      id,
       displayName,
       commits {
         repositoryId,
       }
+    }
+  }
+`;
+
+export const commits = gql`
+  query Commits($startDate: String!) {
+    commits(startDate: $startDate) {
+      id,
+      userId,
+      repositoryId,
     }
   }
 `;

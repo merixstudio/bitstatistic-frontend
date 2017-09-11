@@ -23,17 +23,33 @@ export default class App extends Component {
     this.onOrientationChange = this.onOrientationChange.bind(this);
   }
 
-  componentWillMount() {
-    this.props.charts.fetchRepositories();
-  }
-
   onOrientationChange() {
     const { width } = Dimensions.get('window');
     this.props.ui.changeDeviceWidth(width);
   }
 
   render() {
-    const repositories = [...this.props.charts.repositories];
+    const { repositories, users } = this.props.charts;
+
+    const parsedRepositoriesChartData = repositories
+      ? repositories.map((repository) => {
+        return {
+          ...repository,
+          displayName: repository.fullName,
+          commits: repository.commits.length,
+        };
+      })
+      : [];
+
+    const parsedUsersChartData = users
+      ? users.map((user) => {
+        return {
+          ...user,
+          commits: user.commits.length,
+        };
+      })
+      : [];
+
 
     return (
       <View
@@ -46,8 +62,12 @@ export default class App extends Component {
         <ScrollView>
           {!!repositories.length && <Chart
             title={'Repositories'}
-            description={'Lorem ipsum dolor sit amet, adipisicing elit.'}
-            data={repositories}
+            data={parsedRepositoriesChartData}
+            width={this.props.ui.deviceWidth}
+          />}
+          {!!repositories.length && <Chart
+            title={'Repositories'}
+            data={parsedUsersChartData}
             width={this.props.ui.deviceWidth}
           />}
         </ScrollView>

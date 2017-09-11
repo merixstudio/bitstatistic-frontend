@@ -11,8 +11,8 @@ import client from '../client';
 
 import {
   repositories,
-  commits,
   users,
+  commits,
 } from './queries';
 
 const options = {
@@ -21,15 +21,26 @@ const options = {
 };
 
 export default new class ChartsStore {
-  @query
-  repositories = {
-    ...options,
-    query: repositories,
-  };
+  @observable startDate = moment().subtract(7, 'd')._d;
 
-  @query users = {
-    ...options,
-    query: users,
+  constructor() {
+    query(this, 'commits', {
+      ...options,
+      query: commits,
+      variables: {
+        startDate: this.startDate,
+      },
+    });
+
+    query(this, 'repositories', {
+      ...options,
+      query: repositories,
+    });
+
+    query(this, 'users', {
+      ...options,
+      query: users,
+    });
   }
 
 }();

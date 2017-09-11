@@ -8,32 +8,30 @@ import './Statistics.scss';
 @inject('charts')
 @observer
 export default class Statistics extends Component {
-  constructor(props) {
-    super(props);
-
-    this.props.charts.repositories;
-  }
-
   render() {
-    const { repositories, users } = this.props.charts;
+    const { repositories, users, commits } = this.props.charts;
 
     const parsedRepositoriesChartData = repositories
-    ? repositories.map((repository) => {
-      return {
-        ...repository,
-        displayName: repository.fullName,
-        commits: repository.commits.length,
-      };
-    })
+      ? repositories.map((repository) => {
+        return {
+          ...repository,
+          displayName: repository.fullName,
+          commits: commits
+            ? commits.filter(commit => parseInt(commit.repositoryId, 10) === parseInt(repository.id, 10)).length
+            : 0,
+        };
+      })
     : [];
 
     const parsedUsersChartData = users
-    ? users.map((user) => {
-      return {
-        ...user,
-        commits: user.commits.length,
-      };
-    })
+      ? users.map((user) => {
+        return {
+          ...user,
+          commits: commits
+            ? commits.filter(commit => parseInt(commit.userId, 10) === parseInt(user.id, 10)).length
+            : 0,
+        };
+      })
     : [];
 
     return (
@@ -49,4 +47,4 @@ export default class Statistics extends Component {
       </div>
     );
   }
-};
+}

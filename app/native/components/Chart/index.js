@@ -54,7 +54,7 @@ export default ({
         <VictoryBar
           animate={{ duration: 500 }}
           data={data}
-          x={'date'}
+          x={'displayName'}
           y={'commits'}
           horizontal
           style={{
