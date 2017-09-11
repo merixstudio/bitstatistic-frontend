@@ -2,4 +2,10 @@
   max-width: 900px;
   margin: 50px auto;
   padding: 0 1rem;
+
+  &__input {
+    margin: 0 auto;
+    display: block;
+    max-width: 300px;
+  }
 }

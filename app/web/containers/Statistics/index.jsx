@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { observer, inject } from 'mobx-react';
 
+import DatePicker from 'material-ui/DatePicker';
+
 import { Chart } from '../../components';
 
 import './Statistics.scss';
@@ -8,8 +10,23 @@ import './Statistics.scss';
 @inject('charts')
 @observer
 export default class Statistics extends Component {
+  constructor(props) {
+    super(props);
+
+    this.onDateChange = this.onDateChange.bind(this);
+  }
+
+  onDateChange(event, date) {
+    this.props.charts.changeDate(date);
+  }
+
   render() {
-    const { repositories, users, commits } = this.props.charts;
+    const {
+      repositories,
+      users,
+      commits,
+      startDate,
+    } = this.props.charts;
 
     const parsedRepositoriesChartData = repositories
       ? repositories.map((repository) => {
@@ -36,6 +53,12 @@ export default class Statistics extends Component {
 
     return (
       <div className="statistics">
+        {!!startDate && <DatePicker
+          className="statistics__input"
+          floatingLabelText="Change statistics start date"
+          defaultDate={startDate}
+          onChange={this.onDateChange}
+        />}
         {!!repositories && <Chart
           title={'Commits per repository'}
           data={parsedRepositoriesChartData}

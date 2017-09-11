@@ -25,5 +25,9 @@
   &__description {
     font-size: 18px;
     line-height: 1.5em;
+
+    &--centered {
+      text-align: center;
+    }
   }
 }

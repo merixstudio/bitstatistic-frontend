@@ -15,7 +15,8 @@ export default ({
   <div className="chart">
     <h2 className="chart__title">{title}</h2>
     {!!description && <p className="chart__description">{description}</p>}
-    <VictoryChart
+
+    {data.some(chartData => chartData.commits) && <VictoryChart
       domainPadding={25}
       height={(25 + 50) * (data.length + 1)}
     >
@@ -50,6 +51,9 @@ export default ({
           },
         }}
       />
-    </VictoryChart>
+    </VictoryChart>}
+    {data.some(chartData => !chartData.commits) &&
+        <p className="chart__description chart__description--centered">There is no data for provided date</p>
+    }
   </div>
 );

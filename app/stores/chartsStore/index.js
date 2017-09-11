@@ -2,6 +2,7 @@ import {
   computed,
   observable,
   action,
+  autorun,
 } from 'mobx';
 import { query } from 'mobx-apollo';
 
@@ -17,21 +18,22 @@ import {
 
 const options = {
   client,
+  cachePolicy: {
+    query: true,
+    data: false,
+  },
   onError: error => console.log(error),
 };
 
-export default new class ChartsStore {
+class ChartsStore {
   @observable startDate = moment().subtract(7, 'd')._d;
 
-  constructor() {
-    query(this, 'commits', {
-      ...options,
-      query: commits,
-      variables: {
-        startDate: this.startDate,
-      },
-    });
+  @action
+  changeDate(date) {
+    this.startDate = date;
+  }
 
+  constructor() {
     query(this, 'repositories', {
       ...options,
       query: repositories,
@@ -43,4 +45,18 @@ export default new class ChartsStore {
     });
   }
 
-}();
+}
+
+const store = new ChartsStore();
+
+autorun(() => {
+  query(store, 'commits', {
+    ...options,
+    query: commits,
+    variables: {
+      startDate: store.startDate,
+    },
+  });
+});
+
+export default store;
