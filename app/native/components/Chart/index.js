@@ -16,8 +16,10 @@ export default ({
   title,
   description,
   data,
-  width
-}) => (
+  width,
+}) => {
+  console.log(title, description, data, width);
+  return (
   <View
     style={styles.container}
   >
@@ -26,17 +28,16 @@ export default ({
       <Text style={styles.heading}>{title}</Text>
     </View>
     <View>
-      {description && <Text style={styles.description}>{description}</Text>}
+      {!!description && <Text style={styles.description}>{description}</Text>}
       <VictoryChart
         domainPadding={15}
-        height={(30 + 30) * data.length}
+        height={(30 + 30) * (data.length + 1)}
         width={width}
       >
         <VictoryAxis
           orientation="left"
           style={{
             tickLabels: {
-              angle: 35,
               fontSize: 6,
             },
           }}
@@ -67,5 +68,5 @@ export default ({
       </VictoryChart>
     </View>
   </View>
-);
+)};
 

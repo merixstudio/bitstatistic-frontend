@@ -5,7 +5,6 @@ import {
   ScrollView,
   Dimensions,
 } from 'react-native';
-import moment from 'moment';
 
 import { observer } from 'mobx-react';
 
@@ -29,14 +28,15 @@ export default class App extends Component {
   }
 
   render() {
-    const { repositories, users } = this.props.charts;
+    const { repositories, users, commits } = this.props.charts;
 
     const parsedRepositoriesChartData = repositories
       ? repositories.map((repository) => {
         return {
-          ...repository,
           displayName: repository.fullName,
-          commits: repository.commits.length,
+          commits: commits
+            ? commits.filter(commit => parseInt(commit.repositoryId, 10) === parseInt(repository.id, 10)).length
+            : 0,
         };
       })
       : [];
@@ -44,12 +44,13 @@ export default class App extends Component {
     const parsedUsersChartData = users
       ? users.map((user) => {
         return {
-          ...user,
-          commits: user.commits.length,
+          displayName: user.displayName,
+          commits: commits
+            ? commits.filter(commit => parseInt(commit.userId, 10) === parseInt(user.id, 10)).length
+            : 0,
         };
       })
       : [];
-
 
     return (
       <View
@@ -60,13 +61,13 @@ export default class App extends Component {
           title="Bitstatistics"
         />
         <ScrollView>
-          {!!repositories.length && <Chart
-            title={'Repositories'}
+          {!!users && <Chart
+            title={'Commits per repository'}
             data={parsedRepositoriesChartData}
             width={this.props.ui.deviceWidth}
           />}
-          {!!repositories.length && <Chart
-            title={'Repositories'}
+          {!!users && <Chart
+            title={'Commits per user'}
             data={parsedUsersChartData}
             width={this.props.ui.deviceWidth}
           />}
