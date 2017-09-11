@@ -33,7 +33,7 @@ export default class App extends Component {
     const parsedRepositoriesChartData = repositories
       ? repositories.map((repository) => {
         return {
-          displayName: repository.fullName,
+          displayName: repository.fullName.replace(/merixstudio\//gi, ''),
           commits: commits
             ? commits.filter(commit => parseInt(commit.repositoryId, 10) === parseInt(repository.id, 10)).length
             : 0,

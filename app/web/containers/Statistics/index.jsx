@@ -32,7 +32,7 @@ export default class Statistics extends Component {
       ? repositories.map((repository) => {
         return {
           ...repository,
-          displayName: repository.fullName,
+          displayName: repository.fullName.replace(/merixstudio\//gi, ''),
           commits: commits
             ? commits.filter(commit => parseInt(commit.repositoryId, 10) === parseInt(repository.id, 10)).length
             : 0,
@@ -58,6 +58,8 @@ export default class Statistics extends Component {
           floatingLabelText="Change statistics start date"
           defaultDate={startDate}
           onChange={this.onDateChange}
+          maxDate={new Date()}
+          autoOk
         />}
         {!!repositories && <Chart
           title={'Commits per repository'}
