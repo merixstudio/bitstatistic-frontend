@@ -28,28 +28,32 @@ export default class Statistics extends Component {
       startDate,
     } = this.props.charts;
 
-    const parsedRepositoriesChartData = repositories
-      ? repositories.map((repository) => {
+    const parsedRepositoriesChartData = repositories.data.length
+      ? repositories.data.slice('').map((repository) => {
         return {
           ...repository,
           displayName: repository.fullName.replace(/merixstudio\//gi, ''),
-          commits: commits
-            ? commits.filter(commit => parseInt(commit.repositoryId, 10) === parseInt(repository.id, 10)).length
+          commits: commits.data.length
+            ? commits.data
+                .filter(commit => parseInt(commit.repositoryId, 10) === parseInt(repository.id, 10))
+                .length
             : 0,
         };
       })
-    : [];
+      : [];
 
-    const parsedUsersChartData = users
-      ? users.map((user) => {
+    const parsedUsersChartData = users.data.length
+      ? users.data.map((user) => {
         return {
           ...user,
-          commits: commits
-            ? commits.filter(commit => parseInt(commit.userId, 10) === parseInt(user.id, 10)).length
+          commits: commits.data.length
+            ? commits.data
+                .filter(commit => parseInt(commit.userId, 10) === parseInt(user.id, 10))
+                .length
             : 0,
         };
       })
-    : [];
+      : [];
 
     return (
       <div className="statistics">

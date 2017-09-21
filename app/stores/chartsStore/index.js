@@ -28,35 +28,33 @@ const options = {
 class ChartsStore {
   @observable startDate = moment().subtract(7, 'd')._d;
 
-  @action
-  changeDate(date) {
-    this.startDate = date;
-  }
+  @query
+  repositories = {
+    ...options,
+    query: repositories,
+  };
 
-  constructor() {
-    query(this, 'repositories', {
-      ...options,
-      query: repositories,
-    });
-
-    query(this, 'users', {
-      ...options,
-      query: users,
-    });
-  }
-
-}
-
-const store = new ChartsStore();
-
-autorun(() => {
-  query(store, 'commits', {
+  @query
+  commits = {
     ...options,
     query: commits,
     variables: {
-      startDate: store.startDate,
+      startDate: moment().subtract(7, 'd')._d,
     },
-  });
-});
+  };
 
-export default store;
+  @query
+  users = {
+    ...options,
+    query: users,
+  };
+
+  changeDate = (date) => {
+    this.startDate = date;
+    this.commits.ref.refetch({
+      startDate: date,
+    });
+  };
+}
+
+export default new ChartsStore();
