@@ -29,7 +29,7 @@ export default class Statistics extends Component {
     } = this.props.charts;
 
     const parsedRepositoriesChartData = repositories.data.length
-      ? repositories.data.slice('').map((repository) => {
+      ? repositories.data.map((repository) => {
         return {
           ...repository,
           displayName: repository.fullName.replace(/merixstudio\//gi, ''),
@@ -68,10 +68,12 @@ export default class Statistics extends Component {
         {!!repositories && <Chart
           title={'Commits per repository'}
           data={parsedRepositoriesChartData}
+          isLoading={commits.loading}
         />}
         {!!users && <Chart
           title={'Commits per user'}
           data={parsedUsersChartData}
+          isLoading={commits.loading}
         />}
       </div>
     );

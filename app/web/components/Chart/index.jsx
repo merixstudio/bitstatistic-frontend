@@ -1,4 +1,5 @@
 import React from 'react';
+import CircularProgress from 'material-ui/CircularProgress';
 import {
   VictoryAxis,
   VictoryBar,
@@ -11,12 +12,15 @@ export default ({
   title,
   description,
   data,
+  isLoading,
 }) => (
   <div className="chart">
     <h2 className="chart__title">{title}</h2>
     {!!description && <p className="chart__description">{description}</p>}
 
-    {data.some(chartData => chartData.commits) && <VictoryChart
+    {isLoading && <CircularProgress className="chart__progress" />}
+
+    {data.some(chartData => chartData.commits) && !isLoading && <VictoryChart
       domainPadding={25}
       height={(25 + 50) * (data.length + 1)}
     >
