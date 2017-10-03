@@ -28,26 +28,38 @@ export default class App extends Component {
   }
 
   render() {
-    const { repositories, users, commits } = this.props.charts;
+    const {
+      repositories,
+      users,
+      commits,
+      startDate,
+    } = this.props.charts;
 
-    const parsedRepositoriesChartData = repositories
-      ? repositories.map((repository) => {
+    const parsedRepositoriesChartData = repositories.data.length
+      ? repositories.data.map((repository) => {
         return {
+          ...repository,
+          id: repository.id.toString(),
           displayName: repository.fullName.replace(/merixstudio\//gi, ''),
-          commits: commits
-            ? commits.filter(commit => parseInt(commit.repositoryId, 10) === parseInt(repository.id, 10)).length
-            : 0,
+          commits: commits.data.length
+          ? commits.data
+          .filter(commit => parseInt(commit.repositoryId, 10) === parseInt(repository.id, 10))
+          .length.toString()
+          : '0',
         };
       })
       : [];
 
-    const parsedUsersChartData = users
-      ? users.map((user) => {
+      const parsedUsersChartData = users.data.length
+      ? users.data.map((user) => {
         return {
-          displayName: user.displayName,
-          commits: commits
-            ? commits.filter(commit => parseInt(commit.userId, 10) === parseInt(user.id, 10)).length
-            : 0,
+          ...user,
+          id: user.id.toString(),
+          commits: commits.data.length
+            ? commits.data
+                .filter(commit => parseInt(commit.userId, 10) === parseInt(user.id, 10))
+                .length.toString()
+            : '0',
         };
       })
       : [];
@@ -61,14 +73,16 @@ export default class App extends Component {
           title="Bitstatistics"
         />
         <ScrollView>
-          {!!users && <Chart
+          {!!repositories && commits && <Chart
             title={'Commits per repository'}
             data={parsedRepositoriesChartData}
+            isLoading={commits.loading}
             width={this.props.ui.deviceWidth}
           />}
-          {!!users && <Chart
+          {!!users && commits && <Chart
             title={'Commits per user'}
             data={parsedUsersChartData}
+            isLoading={commits.loading}
             width={this.props.ui.deviceWidth}
           />}
         </ScrollView>

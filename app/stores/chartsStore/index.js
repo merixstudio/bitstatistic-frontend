@@ -22,7 +22,7 @@ const options = {
     query: true,
     data: false,
   },
-  onError: error => console.log(error),
+  onError: error => console.error(error),
 };
 
 class ChartsStore {

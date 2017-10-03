@@ -18,7 +18,6 @@ export default ({
   data,
   width,
 }) => {
-  console.log(title, description, data, width);
   return (
   <View
     style={styles.container}

@@ -4,10 +4,12 @@
 	"private": true,
 	"scripts": {
 		"android:dev": "react-native run-android",
+		"ios:dev": "react-native run-ios",
 		"web:dev": "webpack-dev-server --config web/webpack/webpack.config.dev.js",
 		"web:prod": "webpack --config web/webpack/webpack.config.prod.js --p --progress",
 		"test": "jest",
-		"clear-cache": "gulp clear-cache"
+		"clear-cache": "gulp clear-cache",
+		"postinstall": "sed -i '' 's/\\[headers\\[@\"Content-Length\"\\] unsignedIntValue\\]/\\[headers\\[@\"Content-Length\"\\] intValue\\]/' ./node_modules/react-native/React/Base/RCTMultipartStreamReader.m"
 	},
 	"rnpm": {
 		"assets": [
