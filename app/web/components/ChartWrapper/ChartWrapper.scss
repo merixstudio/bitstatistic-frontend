@@ -25,5 +25,14 @@
   &__description {
     font-size: 18px;
     line-height: 1.5em;
+
+    &--centered {
+      text-align: center;
+    }
+  }
+
+  &__progress {
+    margin: 20px auto;
+    display: block !important;
   }
 }

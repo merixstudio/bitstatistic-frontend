@@ -7,7 +7,7 @@ export const repositories = gql`
       fullName,
       commits {
         id,
-        date,
+        createdAt,
       }
     }
   }

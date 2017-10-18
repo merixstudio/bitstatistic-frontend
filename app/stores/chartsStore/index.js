@@ -1,14 +1,8 @@
-import {
-  computed,
-  observable,
-  action,
-} from 'mobx';
+import { observable } from 'mobx';
 import { query } from 'mobx-apollo';
-
 import moment from 'moment';
 
 import client from '../client';
-
 import {
   repositories,
   users,
@@ -17,30 +11,43 @@ import {
 
 const options = {
   client,
-  onError: error => console.log(error),
+  cachePolicy: {
+    query: true,
+    data: false,
+  },
+  onError: error => console.error(error),
 };
 
-export default new class ChartsStore {
+class ChartsStore {
   @observable startDate = moment().subtract(7, 'd')._d;
 
-  constructor() {
-    query(this, 'commits', {
-      ...options,
-      query: commits,
-      variables: {
-        startDate: this.startDate,
-      },
-    });
+  @query
+  repositories = {
+    ...options,
+    query: repositories,
+  };
 
-    query(this, 'repositories', {
-      ...options,
-      query: repositories,
-    });
+  @query
+  commits = {
+    ...options,
+    query: commits,
+    variables: {
+      startDate: moment().subtract(7, 'd')._d,
+    },
+  };
 
-    query(this, 'users', {
-      ...options,
-      query: users,
-    });
-  }
+  @query
+  users = {
+    ...options,
+    query: users,
+  };
 
-}();
+  changeDate = (date) => {
+    this.startDate = date;
+    this.commits.ref.refetch({
+      startDate: date,
+    });
+  };
+}
+
+export default new ChartsStore();

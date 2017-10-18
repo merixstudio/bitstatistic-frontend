@@ -8,52 +8,59 @@ import {
   VictoryAxis,
   VictoryBar,
   VictoryChart,
+  VictoryLabel,
 } from 'victory-native';
 
 import { styles } from './style';
+
+
+function getTicks(data) {
+  if (data.reduce((max, item) => (item.commits > max ? item.commits : max), 0) <= 6) {
+    return [1, 2, 3, 4, 5, 6];
+  }
+  return undefined;
+}
+
+
+const domainPadding = 15;
+const labelComponent = (
+  <VictoryLabel
+    textAnchor="start"
+    transform={{ translate: '15, -30' }}
+  />
+);
 
 export default ({
   title,
   description,
   data,
   width,
-}) => {
-  console.log(title, description, data, width);
-  return (
-  <View
-    style={styles.container}
-  >
+}) => (
+  <View style={styles.container}>
     <View style={styles.headingContainer}>
       <Text style={styles.dash}>/</Text>
       <Text style={styles.heading}>{title}</Text>
     </View>
-    <View>
+    <View pointerEvents="none">
       {!!description && <Text style={styles.description}>{description}</Text>}
       <VictoryChart
-        domainPadding={15}
-        height={(30 + 30) * (data.length + 1)}
+        padding={{ top: 50, left: 35, bottom: 50, right: 35 }}
+        domainPadding={domainPadding}
+        height={(4 * domainPadding) * (data.length + 1)}
         width={width}
       >
         <VictoryAxis
           orientation="left"
-          style={{
-            tickLabels: {
-              fontSize: 6,
-            },
-          }}
+          style={{ tickLabel: styles.tickLabel }}
+          tickLabelComponent={labelComponent}
         />
         <VictoryAxis
           dependentAxis
           orientation="bottom"
-          style={{
-            tickLabels: {
-              fontSize: 8,
-            },
-          }}
+          tickValues={getTicks(data)}
+          style={{ tickLabel: styles.tickLabel }}
         />
-
         <VictoryBar
-          animate={{ duration: 500 }}
           data={data}
           x={'displayName'}
           y={'commits'}
@@ -68,5 +75,5 @@ export default ({
       </VictoryChart>
     </View>
   </View>
-)};
+);
 
