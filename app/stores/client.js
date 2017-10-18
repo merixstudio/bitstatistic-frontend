@@ -1,7 +1,7 @@
 import ApolloClient, { createNetworkInterface } from 'apollo-client';
 
 const networkInterface = createNetworkInterface({
-  uri: 'http://develop.bitstatistics-backend.next.mrx.gd/graph',
+  uri: `${process.env.BACKEND_URL}/graph`,
   dataIdFromObject: o => o.id,
 });
 

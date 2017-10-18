@@ -1,15 +1,8 @@
-import {
-  computed,
-  observable,
-  action,
-  autorun,
-} from 'mobx';
+import { observable } from 'mobx';
 import { query } from 'mobx-apollo';
-
 import moment from 'moment';
 
 import client from '../client';
-
 import {
   repositories,
   users,

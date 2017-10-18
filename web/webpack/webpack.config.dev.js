@@ -1,6 +1,3 @@
-/*
-    ./webpack.config.js
-*/
 const path = require('path');
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
@@ -10,6 +7,7 @@ const HtmlWebpackPluginConfig = new HtmlWebpackPlugin({
   filename: 'index.html',
   inject: 'body',
 });
+
 module.exports = {
   entry: './app/web/index.jsx',
   output: {
@@ -26,14 +24,22 @@ module.exports = {
       test: /\.js(x)?$/,
       loader: 'babel-loader',
       exclude: /(node_modules|bower_components)/,
+      query: {
+        babelrc: false,
+        presets: ['stage-0', 'es2015', 'react'],
+        plugins: [
+          'transform-decorators-legacy',
+          'transform-class-properties',
+        ],
+      },
     }, {
       test: /\.scss$/,
       use: [{
-        loader: 'style-loader', // creates style nodes from JS strings
+        loader: 'style-loader',
       }, {
-        loader: 'css-loader', // translates CSS into CommonJS
+        loader: 'css-loader',
       }, {
-        loader: 'sass-loader', // compiles Sass to CSS
+        loader: 'sass-loader',
       }],
     }, {
       test: require.resolve('cbor'),
@@ -42,6 +48,12 @@ module.exports = {
   },
   plugins: [
     HtmlWebpackPluginConfig,
+    new webpack.DefinePlugin({
+      'process.env': {
+        NODE_ENV: JSON.stringify('dev'),
+        BACKEND_URL: JSON.stringify('http://localhost:4000'),
+      },
+    }),
   ],
   devServer: {
     host: '0.0.0.0',

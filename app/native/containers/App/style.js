@@ -6,6 +6,7 @@ export const styles = StyleSheet.create({
     backgroundColor: '#fff',
   },
   scrollView: {
-    padding: 20,
+    paddingTop: 20,
+    paddingBottom: 20,
   },
 });

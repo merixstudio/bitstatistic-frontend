@@ -27,59 +27,66 @@ export default class App extends Component {
     this.props.ui.changeDeviceWidth(width);
   }
 
-  render() {
+  parseRespositoriesData() {
     const {
       repositories,
-      users,
       commits,
-      startDate,
     } = this.props.charts;
 
-    const parsedRepositoriesChartData = repositories.data.length
-      ? repositories.data.map((repository) => {
-        return {
-          ...repository,
-          id: repository.id.toString(),
-          displayName: repository.fullName.replace(/merixstudio\//gi, ''),
-          commits: commits.data.length
-          ? commits.data
-          .filter(commit => parseInt(commit.repositoryId, 10) === parseInt(repository.id, 10))
-          .length.toString()
-          : '0',
-        };
-      })
-      : [];
+    if (!repositories.data.length) return [];
+    return repositories.data.map(repository => ({
+      ...repository,
+      id: repository.id.toString(),
+      displayName: repository.fullName.replace(/merixstudio\//gi, ''),
+      commits: commits.data.length
+      ? commits.data
+      .filter(commit => parseInt(commit.repositoryId, 10) === parseInt(repository.id, 10))
+      .length
+      : 0,
+    }));
+  }
 
-      const parsedUsersChartData = users.data.length
-      ? users.data.map((user) => {
-        return {
-          ...user,
-          id: user.id.toString(),
-          commits: commits.data.length
-            ? commits.data
-                .filter(commit => parseInt(commit.userId, 10) === parseInt(user.id, 10))
-                .length.toString()
-            : '0',
-        };
-      })
-      : [];
+  parseUsersData() {
+    const {
+      users,
+      commits,
+    } = this.props.charts;
+
+    if (!users.data.length) return [];
+    return users.data.map(user => ({
+      ...user,
+      id: user.id.toString(),
+      commits: commits.data.length
+        ? commits.data
+            .filter(commit => parseInt(commit.userId, 10) === parseInt(user.id, 10))
+            .length
+        : 0,
+    }));
+  }
+
+  render() {
+    const parsedRepositoriesChartData = this.parseRespositoriesData();
+    const parsedUsersChartData = this.parseUsersData();
+    const {
+      repositories,
+      commits,
+      users,
+    } = this.props.charts;
 
     return (
       <View
         style={styles.main}
         onLayout={this.onOrientationChange}
       >
-        <Header
-          title="Bitstatistics"
-        />
-        <ScrollView>
-          {!!repositories && commits && <Chart
+        <Header title="Bitstatistics" />
+        <ScrollView style={styles.ScrollView}>
+          {!!repositories && commits && repositories.data.length && <Chart
             title={'Commits per repository'}
             data={parsedRepositoriesChartData}
             isLoading={commits.loading}
             width={this.props.ui.deviceWidth}
           />}
-          {!!users && commits && <Chart
+          {!!users && commits && users.data.length && <Chart
             title={'Commits per user'}
             data={parsedUsersChartData}
             isLoading={commits.loading}

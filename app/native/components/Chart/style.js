@@ -2,7 +2,8 @@ import { StyleSheet } from 'react-native';
 
 export const styles = StyleSheet.create({
   container: {
-    padding: 20,
+    paddingTop: 20,
+    paddingBottom: 20,
   },
   dash: {
     color: '#dadada',
@@ -26,6 +27,11 @@ export const styles = StyleSheet.create({
     color: '#000000',
     fontSize: 12,
     fontFamily: 'titillium_regular',
-    textAlign: 'center',
+  },
+  chart: {
+    backgroundColor: 'green',
+  },
+  tickLabel: {
+    fontSize: 12,
   },
 });
